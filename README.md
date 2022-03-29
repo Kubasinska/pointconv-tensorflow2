@@ -1,4 +1,4 @@
-# PointConv tensorflow 2.0 layers
+# a fork of PointConv for tensorflow 2.8 and CUDA 11.2
 
 This repository containts implementations of the PointConv (Wu et al, 2019) feature encoder and feature decoder layers as `tf.keras.layers` classes. This allows for PointConv layers to be used as part of the standard `tf.keras` api. The repository does not aim to be an exact implementation of the original repostiroy, rather a useful tool for building custom models or simple backend encoders for unordered point sets. For more details regarding the technical details check out the [original paper](https://arxiv.org/abs/1811.07246) and [github page](https://github.com/DylanWusee/pointconv). The implementation also matches the style of the [PointNet++ keras layers](https://github.com/dgriffiths3/pointnet2-tensorflow2).
 
