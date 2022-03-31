@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, './')
+sys.path.insert(0, '../')
 
 import tensorflow as tf
 from tensorflow import keras
