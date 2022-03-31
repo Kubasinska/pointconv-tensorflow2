@@ -3,12 +3,13 @@ import sys
 import numpy as np
 import tensorflow as tf
 from tensorflow.python.framework import ops
-
 from tensorflow.keras.layers import MaxPool1D, Layer
 
-sampling_module = tf.load_op_library('../tf_ops/sampling/tf_sampling_so.so')
-grouping_module = tf.load_op_library('../tf_ops/grouping/tf_grouping_so.so')
-interpolate_module = tf.load_op_library('../tf_ops/3d_interpolation/tf_interpolate_so.so')
+from pathlib import Path
+tf_ops_path = str(Path(__file__).parent) + "/../tf_ops/"
+sampling_module = tf.load_op_library(tf_ops_path + 'sampling/tf_sampling_so.so')
+grouping_module = tf.load_op_library(tf_ops_path + 'grouping/tf_grouping_so.so')
+interpolate_module = tf.load_op_library(tf_ops_path + '3d_interpolation/tf_interpolate_so.so')
 
 
 def prob_sample(inp, inpr):
