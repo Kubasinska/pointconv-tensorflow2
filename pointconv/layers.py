@@ -8,6 +8,9 @@ from tensorflow.keras.layers import Layer, BatchNormalization
 from pointconv import utils, cpp_modules
 
 class PointConvSA(keras.layers.Layer):
+	"""
+	Described in https://arxiv.org/pdf/1811.07246.pdf Section 3.1
+	"""
 
 	def __init__(self, npoint, radius, sigma, K, mlp, group_all=False, activation=tf.nn.relu, bn=False):
 
@@ -86,6 +89,9 @@ class PointConvSA(keras.layers.Layer):
 
 
 class PointConvFP(keras.layers.Layer):
+	"""
+	Described in https://arxiv.org/pdf/1811.07246.pdf Section 3.2. FP stands for Feature Propagation
+	"""
 
 	def __init__(self, radius, sigma, K, mlp, out_ch=512, activation=tf.nn.relu, bn=False):
 		super(PointConvFP, self).__init__()
