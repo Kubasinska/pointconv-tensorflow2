@@ -1,27 +1,19 @@
-# a fork of PointConv for tensorflow 2.8 and CUDA 11.2
+# A fork of PointConv for tensorflow 2.8 and CUDA 11.2
 
-This repository containts implementations of the PointConv (Wu et al, 2019) feature encoder and feature decoder layers as `tf.keras.layers` classes. This allows for PointConv layers to be used as part of the standard `tf.keras` api. The repository does not aim to be an exact implementation of the original repostiroy, rather a useful tool for building custom models or simple backend encoders for unordered point sets. For more details regarding the technical details check out the [original paper](https://arxiv.org/abs/1811.07246) and [github page](https://github.com/DylanWusee/pointconv). The implementation also matches the style of the [PointNet++ keras layers](https://github.com/dgriffiths3/pointnet2-tensorflow2).
+## What are the differences from [dgriffiths3](https://github.com/dgriffiths3/pointconv-tensorflow2) repo?
 
-> Note: I have only implemented the feature encoding layer. I will add the decoder as soon as I find time. Once the decoder is done, I will upload a ScanNet per-point segmentation model example as well.
+1. This implementation works with tensorlfow 2.8 and cuda 11.2 (Nvidia 3080 GPUs only support CUDA >= 11.2).
+2. I have also added a simpler import method: `from pointconv import PointConvSA`.
 
 ## Setup
 
-Requirements:
+1. Clone this repository
+2. `cd` into pointconv-tensorflow2
+3. Compile ops by running `./tf_ops/compile_ops.sh PYTHON_INTERPRETER_PATH` (ensure the `CUDA_ROOT` points correctly to cuda 11.2)
+4. Install pointconv package with `python -m pip install -e .` 
 
-```
-python >= 3.6
-tensorflow >= 2.2+
-cuda == 10.1
-```
-> Note: This repository uses the `train_step` model override which is new for `tensorflow 2.2.0`, as such if you wish to use the provided training scripts it is important your tensorflow is not an older version. The layers will work for tensorflow 2.0+.
-
-
-To compile the C++ tensorflow ops, first ensure the `CUDA_ROOT` path in `tf_ops/compile_ops.sh` points correctly to your cuda folder and then compile the ops with:
-
-```
-chmod u+x tf_ops/compile_ops.sh
-tf_ops/compile_ops.sh
-```
+_____
+This repository containts implementations of the PointConv (Wu et al, 2019) feature encoder and feature decoder layers as `tf.keras.layers` classes. This allows for PointConv layers to be used as part of the standard `tf.keras` api. The repository does not aim to be an exact implementation of the original repostiroy, rather a useful tool for building custom models or simple backend encoders for unordered point sets. For more details regarding the technical details check out the [original paper](https://arxiv.org/abs/1811.07246) and [github page](https://github.com/DylanWusee/pointconv). The implementation also matches the style of the [PointNet++ keras layers](https://github.com/dgriffiths3/pointnet2-tensorflow2).
 
 ## Usage
 
@@ -29,7 +21,7 @@ The layers follow the standard `tf.keras.layers` api. To import in your own proj
 
 ```
 from tensorflow import keras
-from pointconv.layers import PointConvSetAbstraction
+from pointconv import PointConvSA
 
 class MyModel(keras.Model):
 
@@ -61,25 +53,9 @@ class MyModel(keras.Model):
     return pred
 ```
 
-A full working example of an implemented model for classification and point-wise semantic segmentation can be found in `model_modelnet.py` and `model_scannet.py` respectively. To run, first download the training data from [here](https://drive.google.com/drive/folders/1v5B68RHgDI95KM4EhDrRJxLacJAHcoxz) and place in a folder called `data`. Configure the `config` dictionary to point to where you have saved it. Once the `config` is set, start the training with:
+## Examples
 
-```
-python train_modelnet.py
-```
-
-or:
-
-```
-python train_scannet.py
-```
-
-If the config is left to the default you can view training logs with:
-
-```
-cd <project root>
-tensorboard --logdir=logs --port=6006
-```
-and navigate to `localhost:6006` in a web browser.
+Refer to [dgriffiths3](https://github.com/dgriffiths3/pointconv-tensorflow2) repository for use cases.
 
 ## Note
 
